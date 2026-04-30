@@ -15,7 +15,8 @@ console.log(email, password)
 try {
     const r = await fetch('https://jsonplaceholder.typicode.com/todos`)
 
-        const y await r.json();
+        const y await r.json (
+        );
 
         const u = y.find((a)) => a.email === email)
 
