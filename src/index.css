@@ -214,19 +214,147 @@ main { max-width: 1160px; margin: 0 auto; padding: 0 0 90px; }
 
 .empty-state { color: var(--text-dim); padding: 0 40px; }
 
-/* Car detail */
-.car-detail__price { font-size: 1.4rem; color: var(--lime); font-weight: 700; }
-.car-detail__meta { color: var(--text-dim); margin-bottom: 24px; }
-.car-detail button {
-  background: var(--accent);
-  border: none;
-  color: #fff;
-  font-weight: 600;
-  padding: 10px 20px;
-  border-radius: var(--radius);
+/* Car detail — spec sheet layout */
+.detail { padding: 40px; display: flex; justify-content: center; }
+
+.detail__card {
+  background: var(--bg-raised);
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 460px;
+  width: 100%;
 }
-.car-detail button:disabled { background: var(--accent-dim); color: var(--text-dim); cursor: default; }
+
+.detail__photo {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.detail__photo--placeholder {
+  background: linear-gradient(135deg, #1e1a24, #0a0a0a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  font-family: 'Sora', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.detail__body { padding: 20px 22px 26px; }
+
+.detail__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+}
+
+.detail__eyebrow {
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 4px;
+}
+
+.detail__heading h1 {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--accent);
+  margin: 0 0 4px;
+}
+
+.detail__subtitle {
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.detail__price { text-align: right; flex-shrink: 0; }
+.detail__price-label {
+  color: var(--lime);
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 4px;
+}
+.detail__price-value {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.detail__section-label {
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 12px;
+}
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.spec-chip {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 10px 10px;
+}
+.spec-chip__value {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.spec-chip__label {
+  color: var(--text-dim);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail__description {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.detail__cta {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 13px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+.detail__cta:disabled { background: var(--accent-dim); color: var(--text-dim); cursor: default; }
+
 .hint { color: var(--text-dim); font-size: 0.9rem; }
+
+@media (max-width: 500px) {
+  .spec-grid { grid-template-columns: repeat(2, 1fr); }
+  .detail { padding: 20px; }
+}
 
 /* Forms */
 .auth-form, .car-form {
@@ -255,7 +383,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 0 0 90px; }
   color: var(--text-dim);
 }
 
-.auth-form input, .car-form input, .auth-form select {
+.auth-form input, .car-form input, .auth-form select, .car-form select, .car-form textarea {
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -264,12 +392,31 @@ main { max-width: 1160px; margin: 0 auto; padding: 0 0 90px; }
   font-size: 0.95rem;
   text-transform: none;
   letter-spacing: normal;
+  font-family: inherit;
 }
-.auth-form input:focus, .car-form input:focus, .auth-form select:focus {
+.auth-form input:focus, .car-form input:focus, .auth-form select:focus, .car-form select:focus, .car-form textarea:focus {
   outline: 2px solid var(--lime);
   outline-offset: 1px;
   border-color: var(--lime);
 }
+
+.car-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.car-form__divider {
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  margin: 6px 0 -4px;
+}
+
+.car-form textarea { resize: vertical; }
 
 .auth-form button, .car-form button {
   background: var(--lime);
