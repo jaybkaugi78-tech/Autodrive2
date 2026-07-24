@@ -18,14 +18,8 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <p className="hero__eyebrow">Car Marketplace</p>
-        <h1>
-          Find your
-          <br />
-          dream car
-          <br />
-          today
-        </h1>
+        <p className="hero__eyebrow">Auto Drive</p>
+        <h1>Find your<br />dream car<br />today</h1>
         <p>
           Browse listings from verified sellers, save the ones you like, and
           reach out when you're ready to buy.

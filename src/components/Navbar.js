@@ -13,7 +13,7 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <Link to="/" className="navbar__brand">
-        Car<span>Marketplace</span>
+        Auto<span>Drive</span>
       </Link>
       <nav className="navbar__links">
         <Link to="/">Browse</Link>

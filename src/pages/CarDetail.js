@@ -85,7 +85,7 @@ export default function CarDetail() {
 
           {token ? (
             <button className="detail__cta" onClick={handleFavorite} disabled={favorited}>
-              {favorited ? "Saved to favorites" : "Enquire now"}
+              {favorited ? "Saved to favorites" : "Favourite"}
             </button>
           ) : (
             <p className="hint">Log in to enquire or save this car to your favorites.</p>
