@@ -10,6 +10,7 @@ import ResetPassword from "./pages/ResetPassword";
 import CarDetail from "./pages/CarDetail";
 import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import Favorites from "./pages/Favorites";
 import "./index.css";
 
 export default function App() {
