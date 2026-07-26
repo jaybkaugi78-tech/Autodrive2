@@ -20,6 +20,7 @@ export default function Navbar() {
         {token ? (
           <>
             <Link to="/dashboard">Dashboard</Link>
+            <Link to="/favorites">Favorites</Link>
             {user?.role === "admin" && <Link to="/admin">Admin</Link>}
             <span className="navbar__user">{user?.name}</span>
             <button className="navbar__logout" onClick={handleLogout}>

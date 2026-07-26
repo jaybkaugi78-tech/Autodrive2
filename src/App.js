@@ -41,6 +41,14 @@ export default function App() {
                 </AdminRoute>
               }
             />
+            <Route
+              path="/favorites"
+              element={
+                <ProtectedRoute>
+                  <Favorites />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </main>
       </BrowserRouter>
