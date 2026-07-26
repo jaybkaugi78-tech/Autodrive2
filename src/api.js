@@ -31,7 +31,8 @@ export const api = {
 
   // favorites
   addFavorite: (car_id, token) => request("/favorites", { method: "POST", body: { car_id }, token }),
-
+  getFavorites: (token) => request("/favorites", { token }),
+  
   // admin
   adminGetUsers: (token) => request("/admin/users", { token }),
   adminDeleteUser: (id, token) => request(`/admin/users/${id}`, { method: "DELETE", token }),
