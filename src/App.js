@@ -11,6 +11,7 @@ import CarDetail from "./pages/CarDetail";
 import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import Favorites from "./pages/Favorites";
+import Contact from "./pages/Contact";
 import "./index.css";
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/cars/:id" element={<CarDetail />} />
+            <Route path="/contact" element={<Contact />} />
             <Route
               path="/dashboard"
               element={
@@ -49,6 +51,7 @@ export default function App() {
                 </ProtectedRoute>
               }
             />
+        
           </Routes>
         </main>
       </BrowserRouter>

@@ -17,6 +17,7 @@ export default function Navbar() {
       </Link>
       <nav className="navbar__links">
         <Link to="/">Browse</Link>
+        <Link to="/contact">Contact</Link>
         {token ? (
           <>
             <Link to="/dashboard">Dashboard</Link>

@@ -32,9 +32,14 @@ export const api = {
   // favorites
   addFavorite: (car_id, token) => request("/favorites", { method: "POST", body: { car_id }, token }),
   getFavorites: (token) => request("/favorites", { token }),
-  
+
   // admin
   adminGetUsers: (token) => request("/admin/users", { token }),
   adminDeleteUser: (id, token) => request(`/admin/users/${id}`, { method: "DELETE", token }),
   adminDeleteCar: (id, token) => request(`/admin/cars/${id}`, { method: "DELETE", token }),
+
+  // contact
+  sendContactMessage: (payload) => request("/contact", { method: "POST", body: payload }),
+  adminGetMessages: (token) => request("/admin/messages", { token }),
+  adminDeleteMessage: (id, token) => request(`/admin/messages/${id}`, { method: "DELETE", token }),
 };

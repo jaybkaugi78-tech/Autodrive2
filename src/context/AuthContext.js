@@ -4,8 +4,6 @@ import { api } from "../api";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  // Kept in memory only (no localStorage) — resets on refresh.
-  // Swap to a persisted store later if your rubric requires "stay logged in".
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
 

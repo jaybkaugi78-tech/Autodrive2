@@ -6,19 +6,21 @@ export default function AdminDashboard() {
   const { token } = useAuth();
   const [users, setUsers] = useState([]);
   const [cars, setCars] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
   function loadData() {
-    setLoading(true);
-    Promise.all([api.adminGetUsers(token), api.getCars()])
-      .then(([u, c]) => {
-        setUsers(u);
-        setCars(c);
-      })
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }
+  setLoading(true);
+  Promise.all([api.adminGetUsers(token), api.getCars(), api.adminGetMessages(token)])
+    .then(([u, c, m]) => {
+      setUsers(u);
+      setCars(c);
+      setMessages(m);
+    })
+    .catch((err) => setError(err.message))
+    .finally(() => setLoading(false));
+}
 
   useEffect(loadData, [token]);
 
@@ -41,6 +43,16 @@ export default function AdminDashboard() {
       setError(err.message);
     }
   }
+
+  async function handleDeleteMessage(id) {
+  if (!window.confirm("Delete this message?")) return;
+  try {
+    await api.adminDeleteMessage(id, token);
+    loadData();
+  } catch (err) {
+    setError(err.message);
+  }
+}
 
   if (loading) return <p className="empty-state" style={{ padding: "40px" }}>Loading admin data…</p>;
 
@@ -106,6 +118,25 @@ export default function AdminDashboard() {
           ))}
         </tbody>
       </table>
+       <h2 style={{ color: "var(--lime)", fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.08em", marginTop: "36px" }}>
+      Messages ({messages.length})
+    </h2>
+    <table className="admin-table">
+      <thead>
+        <tr><th>Name</th><th>Email</th><th>Message</th><th>Sent</th><th></th></tr>
+      </thead>
+      <tbody>
+        {messages.map((m) => (
+          <tr key={m.id}>
+            <td>{m.name}</td>
+            <td>{m.email}</td>
+            <td>{m.message}</td>
+            <td>{new Date(m.created_at).toLocaleDateString()}</td>
+            <td><button className="admin-table__delete" onClick={() => handleDeleteMessage(m.id)}>Delete</button></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
     </section>
   );
 }
