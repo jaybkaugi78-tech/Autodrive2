@@ -212,7 +212,19 @@ main { max-width: none; margin: 0 auto; padding: 0 0 90px; }
   font-size: 1.4rem;
   letter-spacing: 0.02em;
 }
-
+.car-card__delete {
+  margin-top: 8px;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 6px;
+  border-radius: var(--radius);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.car-card__delete:hover { background: var(--danger); color: #1a0a0a; }
 .car-card__body { padding: 18px 4px; }
 .car-card__body h3 { font-size: 1.25rem; margin-bottom: 8px; font-style: normal; }
 .car-card__price { color: var(--lime); font-weight: 700; margin: 0 0 4px; font-size: 1.15rem; }

@@ -1,6 +1,6 @@
 import CarCard from "./CarCard";
 
-export default function CarList({ cars }) {
+export default function CarList({ cars, currentUserId, isAdmin, onDelete }) {
   if (!cars.length) {
     return <p className="empty-state">No cars listed yet — check back soon.</p>;
   }
@@ -8,7 +8,13 @@ export default function CarList({ cars }) {
   return (
     <div className="car-list">
       {cars.map((car) => (
-        <CarCard key={car.id} car={car} />
+        <CarCard
+          key={car.id}
+          car={car}
+          currentUserId={currentUserId}
+          isAdmin={isAdmin}
+          onDelete={onDelete}
+        />
       ))}
     </div>
   );
