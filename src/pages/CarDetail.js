@@ -19,6 +19,8 @@ export default function CarDetail() {
   const [car, setCar] = useState(null);
   const [error, setError] = useState("");
   const [favorited, setFavorited] = useState(false);
+  const [msgForm, setMsgForm] = useState({ name: "", email: "", message: "" });
+  const [msgStatus, setMsgStatus] = useState("");
 
   useEffect(() => {
     api
@@ -35,6 +37,27 @@ export default function CarDetail() {
       setError(err.message);
     }
   }
+  async function handleFavorite() {
+    try {
+      await api.addFavorite(id, token);
+      setFavorited(true);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleSendMessage(e) {
+    e.preventDefault();
+    try {
+      const res = await api.sendCarMessage(id, msgForm);
+      setMsgStatus(res.message);
+      setMsgForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  if (error) return <p className="form-error" style={{ padding: "40px" }}>{error}</p>;
 
   if (error) return <p className="form-error" style={{ padding: "40px" }}>{error}</p>;
   if (!car) return <p className="empty-state" style={{ padding: "40px" }}>Loading…</p>;
