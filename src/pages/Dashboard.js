@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { api } from "../api";
 import { useAuth } from "../context/AuthContext";
 
@@ -13,6 +13,8 @@ export default function Dashboard() {
   const [form, setForm] = useState(emptyForm);
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
+  const [inbox, setInbox] = useState([]);
+  const [inboxLoading, setInboxLoading] = useState(true);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -49,6 +51,29 @@ export default function Dashboard() {
       );
       setStatus("Listing posted.");
       setForm(emptyForm);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  function loadInbox() {
+    setInboxLoading(true);
+    api
+      .getReceivedMessages(token)
+      .then(setInbox)
+      .catch((err) => setError(err.message))
+      .finally(() => setInboxLoading(false));
+  }
+
+  useEffect(() => {
+    if (isSeller) loadInbox();
+  }, [isSeller]);
+
+  async function handleDeleteMessage(id) {
+    if (!window.confirm("Delete this message?")) return;
+    try {
+      await api.deleteReceivedMessage(id, token);
+      loadInbox();
     } catch (err) {
       setError(err.message);
     }
@@ -163,6 +188,36 @@ export default function Dashboard() {
 
             <button type="submit">Post listing</button>
           </form>
+
+          <h2 style={{ marginTop: "36px" }}>Messages about your cars</h2>
+          {inboxLoading && <p className="empty-state">Loading…</p>}
+          {!inboxLoading && inbox.length === 0 && <p className="empty-state">No messages yet.</p>}
+          {!inboxLoading && inbox.length > 0 && (
+            <table className="admin-table">
+              <thead>
+                <tr><th>Car</th><th>From</th><th>Message</th><th>Sent</th><th></th></tr>
+              </thead>
+              <tbody>
+                {inbox.map((m) => (
+                  <tr key={m.id}>
+                    <td>{m.car.year} {m.car.make} {m.car.model}</td>
+                    <td>
+                      {m.buyer_name}
+                      <br />
+                      <span style={{ color: "var(--text-dim)", fontSize: "0.8em" }}>{m.buyer_email}</span>
+                    </td>
+                    <td>{m.message}</td>
+                    <td>{new Date(m.created_at).toLocaleDateString()}</td>
+                    <td>
+                      <button className="admin-table__delete" onClick={() => handleDeleteMessage(m.id)}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </>
       ) : (
         <p className="empty-state">
