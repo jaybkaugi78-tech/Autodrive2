@@ -37,7 +37,7 @@ export default function CarDetail() {
       setError(err.message);
     }
   }
-  
+
   async function handleSendMessage(e) {
     e.preventDefault();
     try {
@@ -48,8 +48,6 @@ export default function CarDetail() {
       setError(err.message);
     }
   }
-
-  if (error) return <p className="form-error" style={{ padding: "40px" }}>{error}</p>;
 
   if (error) return <p className="form-error" style={{ padding: "40px" }}>{error}</p>;
   if (!car) return <p className="empty-state" style={{ padding: "40px" }}>Loading…</p>;
