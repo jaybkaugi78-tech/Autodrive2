@@ -66,8 +66,9 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    if (isSeller) loadInbox();
-  }, [isSeller]);
+  if (isSeller) loadInbox();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [isSeller])
 
   async function handleDeleteMessage(id) {
     if (!window.confirm("Delete this message?")) return;
