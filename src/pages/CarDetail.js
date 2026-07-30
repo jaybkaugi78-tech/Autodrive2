@@ -37,15 +37,7 @@ export default function CarDetail() {
       setError(err.message);
     }
   }
-  async function handleFavorite() {
-    try {
-      await api.addFavorite(id, token);
-      setFavorited(true);
-    } catch (err) {
-      setError(err.message);
-    }
-  }
-
+  
   async function handleSendMessage(e) {
     e.preventDefault();
     try {
