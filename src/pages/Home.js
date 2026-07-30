@@ -8,6 +8,7 @@ export default function Home() {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [query, setQuery] = useState("");
 
   function loadCars() {
     setLoading(true);
@@ -29,6 +30,11 @@ export default function Home() {
     }
   }
 
+  const filteredCars = cars.filter((car) => {
+    const haystack = `${car.make} ${car.model} ${car.year}`.toLowerCase();
+    return haystack.includes(query.trim().toLowerCase());
+  });
+
   return (
     <>
       <section className="hero">
@@ -48,14 +54,24 @@ export default function Home() {
 
       <div className="listings-header">
         <h2>Cars on sale</h2>
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search make, model, year…"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </div>
 
       <section>
         {loading && <p className="empty-state">Loading listings…</p>}
         {error && <p className="form-error" style={{ padding: "0 40px" }}>{error}</p>}
+        {!loading && !error && query && filteredCars.length === 0 && (
+          <p className="empty-state">No cars match "{query}".</p>
+        )}
         {!loading && !error && (
           <CarList
-            cars={cars}
+            cars={filteredCars}
             currentUserId={user?.id}
             isAdmin={user?.role === "admin"}
             onDelete={handleDelete}
