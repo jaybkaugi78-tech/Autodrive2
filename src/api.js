@@ -42,4 +42,8 @@ export const api = {
   sendContactMessage: (payload) => request("/contact", { method: "POST", body: payload }),
   adminGetMessages: (token) => request("/admin/messages", { token }),
   adminDeleteMessage: (id, token) => request(`/admin/messages/${id}`, { method: "DELETE", token }),
+
+  sendCarMessage: (carId, payload) => request(`/cars/${carId}/messages`, { method: "POST", body: payload }),
+  getReceivedMessages: (token) => request("/messages", { token }),
+  deleteReceivedMessage: (id, token) => request(`/messages/${id}`, { method: "DELETE", token }),
 };

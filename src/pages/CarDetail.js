@@ -83,13 +83,31 @@ export default function CarDetail() {
 
           {car.description && <p className="detail__description">{car.description}</p>}
 
-          {token ? (
-            <button className="detail__cta" onClick={handleFavorite} disabled={favorited}>
-              {favorited ? "Saved to favorites" : "Favourite"}
-            </button>
-          ) : (
-            <p className="hint">Log in to enquire or save this car to your favorites.</p>
-          )}
+         <div className="detail__actions">
+  {token && (
+    <button className="detail__save" onClick={handleFavorite} disabled={favorited}>
+      {favorited ? "Saved to favorites" : "Save to favorites"}
+    </button>
+  )}
+
+  <p className="detail__section-label" style={{ marginTop: "18px" }}>Message the seller</p>
+  {msgStatus && <p className="form-success">{msgStatus}</p>}
+  <form className="car-form" onSubmit={handleSendMessage} style={{ maxWidth: "none", padding: 0, background: "none", border: "none" }}>
+    <label>
+      Your name
+      <input value={msgForm.name} onChange={(e) => setMsgForm({ ...msgForm, name: e.target.value })} required />
+    </label>
+    <label>
+      Your email
+      <input type="email" value={msgForm.email} onChange={(e) => setMsgForm({ ...msgForm, email: e.target.value })} required />
+    </label>
+    <label>
+      Message
+      <textarea rows={3} value={msgForm.message} onChange={(e) => setMsgForm({ ...msgForm, message: e.target.value })} required />
+    </label>
+    <button type="submit" className="detail__cta">Send message</button>
+  </form>
+</div> 
         </div>
       </div>
     </section>
